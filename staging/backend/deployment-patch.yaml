@@ -8,9 +8,9 @@ spec:
     spec:
       containers:
       - name: rebom-backend-container
-        image: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public/rebom-backend
+        image: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public/rebom-backend@sha256:dbccac4b316c1527bd56149aae7b81d72cdd700b9118551c032501e4c3d7abad
       initContainers:
       - name: rebom-backend-init
-        image: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public/rebom-backend
+        image: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public/rebom-backend@sha256:dbccac4b316c1527bd56149aae7b81d72cdd700b9118551c032501e4c3d7abad
       - name: rebom-backend-migrations
         image: flyway/flyway:9-alpine
