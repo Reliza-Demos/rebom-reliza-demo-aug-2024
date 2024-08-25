@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rebom-postgres
+  namespace: rebom
+spec:
+  template:
+    spec:
+      containers:
+        - name: postgres-container
+          image: postgres:16

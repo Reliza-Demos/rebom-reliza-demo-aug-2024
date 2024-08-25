@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rebom-ingress
+  namespace: rebom
+  labels:
+    app: rebom
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: rebom-frontend-service
+            port:
+              number: 80

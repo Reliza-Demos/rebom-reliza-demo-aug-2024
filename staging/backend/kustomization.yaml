@@ -1,0 +1,5 @@
+resources:
+  - ../../base/backend
+
+patches:
+  - path: deployment-patch.yaml

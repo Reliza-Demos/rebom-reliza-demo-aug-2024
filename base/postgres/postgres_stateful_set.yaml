@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rebom-postgres
+  namespace: rebom
+  labels:
+    app: rebom
+spec:
+  selector:
+    matchLabels:
+      app: rebom
+      name: postgres
+  replicas: 1
+  serviceName: rebom-postgres
+  template:
+    metadata:
+      labels:
+        name: postgres
+        app: rebom
+    spec:
+      containers:
+        - name: postgres-container
+          image: postgres:14.1
+          env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rebom-pgpassword
+                key: password
+          ports:
+          - containerPort: 5432
+          volumeMounts:
+          - mountPath: "/var/lib/postgresql/data"
+            name: postgres-data
+            subPath: postgres
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 2Gi

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-rebom
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+  destination:
+    namespace: rebom
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: test
+    repoURL: https://github.com/Reliza-Demos/rebom-kustomize.git
+    targetRevision: main

@@ -1,10 +1,10 @@
 enabled: true
 backend:
-  image: registry.relizahub.com/library/rebom-backend
+  image: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public/rebom-backend
   replicaCount: 1
   regcred: none
 frontend:
-  image: registry.relizahub.com/library/rebom-frontend
+  image: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public/rebom-frontend
   replicaCount: 1
   regcred: none
 postgresql:

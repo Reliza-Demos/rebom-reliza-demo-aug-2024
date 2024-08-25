@@ -1,0 +1,68 @@
+on: [push]
+
+name: Update images based on Reliza Hub definitions
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Update Definitions based on Reliza Hub
+    runs-on: ubuntu-latest
+    env:
+      APIKEYID: ${{ secrets.RELIZA_API_ID }}
+      APIKEY: ${{ secrets.RELIZA_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - id: setup-reliza-cli
+        name: setup-reliza-cli
+        uses: relizaio/setup-reliza-cli@2.0
+        with: 
+          version: 2023.09.21
+      - name: Update definitions based on Reliza Hub data
+        run: |
+          reliza-cli replacetags --env TEST --indirectory ${PWD}/test --outdirectory ${PWD}/test_upd --provenance=false
+          rm -rf test && mv test_upd test
+          reliza-cli replacetags --env STAGING --indirectory ${PWD}/staging --outdirectory ${PWD}/staging_upd --provenance=false
+          rm -rf staging && mv staging_upd staging
+      - name: Check if the change happened
+        run: |
+          lines=$(git status -s | wc -l)
+          if [ $lines -gt 0 ];then
+            echo "committing and recording release"
+            echo "DO_COMMIT=true" >> $GITHUB_ENV
+          else
+            echo "no change, nothing to commit"
+          fi
+      - name: Commit if change happened
+        if: ${{env.DO_COMMIT == 'true'}}
+        run: |
+          git config --local user.name 'reliza-auto'
+          git config --local user.email 'info@reliza.io'
+          git add .
+          git commit -m "fix: update of deployment definitions based on Reliza Hub"
+          git push
+      - id: get-version
+        name: Get Build Version
+        if: ${{env.DO_COMMIT == 'true'}}
+        uses: relizaio/reliza-get-version@1.6
+        with: 
+          reliza_api_id: ${{ secrets.RELIZA_API_ID }}
+          reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
+          reliza_project_id: 0f8ed0be-f971-46b1-9854-fe9e4f904b8c
+      - name: Submit metadata to Reliza Hub
+        uses: relizaio/reliza-add-release@1.1
+        if: ${{env.DO_COMMIT == 'true'}}
+        with:
+          reliza_api_id: ${{ secrets.RELIZA_API_ID }}
+          reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
+          image_full_name: github.com/$GITHUB_REPOSITORY
+          image_digest: $(git log -1 --pretty='%H')
+          artifact_type: File
+          reliza_full_version: ${{ steps.get-version.outputs.reliza_full_version }}
+          reliza_build_start: ${{ steps.get-version.outputs.reliza_build_start }}
+          reliza_build_status: complete
+          reliza_project_id: 0f8ed0be-f971-46b1-9854-fe9e4f904b8c
