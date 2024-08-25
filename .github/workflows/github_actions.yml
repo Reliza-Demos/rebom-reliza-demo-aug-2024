@@ -16,12 +16,12 @@ jobs:
           registry_username: ${{ secrets.DOCKER_LOGIN }}
           registry_password: ${{ secrets.DOCKER_TOKEN }}
           registry_host: registry.relizahub.com
-          image_namespace: registry.relizahub.com/library
+          image_namespace: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public
           image_name: rebom-backend
           reliza_api_id: ${{ secrets.RELIZA_API_ID }}
           reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
           path: backend
-          reliza_project_id: 116bbe7f-35ea-4554-bbde-3845059961d5
+          reliza_project_id: dafcfed2-f327-439b-b128-544b5d75aa39
           enable_sbom: 'true'
   build-frontend:
     name: Build And Push Frontend
@@ -33,12 +33,12 @@ jobs:
           registry_username: ${{ secrets.DOCKER_LOGIN }}
           registry_password: ${{ secrets.DOCKER_TOKEN }}
           registry_host: registry.relizahub.com
-          image_namespace: registry.relizahub.com/library
+          image_namespace: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public
           image_name: rebom-frontend
           reliza_api_id: ${{ secrets.RELIZA_API_ID }}
           reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
           path: frontend
-          reliza_project_id: a77887b8-2095-46ce-851f-47c72eca863b
+          reliza_project_id: 9768dd74-0e7f-418d-8ee7-0e73c653f7bb
           enable_sbom: 'true'
   build-helm:
     name: Build And Push Helm Chart
@@ -49,9 +49,9 @@ jobs:
         with:
           registry_username: ${{ secrets.DOCKER_LOGIN }}
           registry_password: ${{ secrets.DOCKER_TOKEN }}
-          registry_host: registry.relizahub.com/library
+          registry_host: registry.relizahub.com/119a99d7-3992-4de4-91dc-395c70272e93-public
           helm_chart_name: rebom
           reliza_api_id: ${{ secrets.RELIZA_API_ID }}
           reliza_api_key: ${{ secrets.RELIZA_API_KEY }}
           path: helm
-          reliza_project_id: 4aa0e445-9f12-4c80-880a-f919c1761f6c
+          reliza_project_id: 3c765ff1-c4ef-4838-91c4-5497bfd0ab2b
