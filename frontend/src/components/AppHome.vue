@@ -3,7 +3,7 @@
         <div class="giveUsAStar">
             <a href="https://github.com/relizaio/rebom"><vue-feather type="github"/></a>
         </div>
-        <h1>Rebom -  Catalog of Software Bills of Materials</h1>
+        <h1>Rebom - Reliza's Catalog of Software Bills of Materials</h1>
         <div>
             <n-form 
                 inline
