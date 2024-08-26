@@ -26,9 +26,9 @@ jobs:
           version: 2023.09.21
       - name: Update definitions based on Reliza Hub data
         run: |
-          reliza-cli replacetags --instanceuri lh-kustomize --namespace rebom-kustomize --indirectory ${PWD}/test --outdirectory ${PWD}/test_upd --provenance=false
+          reliza-cli replacetags --bundle Rebom --env TEST --indirectory ${PWD}/test --outdirectory ${PWD}/test_upd --provenance=false
           rm -rf test && mv test_upd test
-          reliza-cli replacetags --env STAGING --indirectory ${PWD}/staging --outdirectory ${PWD}/staging_upd --provenance=false
+          reliza-cli replacetags --bundle Rebom --env STAGING --indirectory ${PWD}/staging --outdirectory ${PWD}/staging_upd --provenance=false
           rm -rf staging && mv staging_upd staging
       - name: Check if the change happened
         run: |
