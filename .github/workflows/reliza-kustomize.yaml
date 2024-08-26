@@ -1,4 +1,6 @@
-on: [push]
+on:
+  repository_dispatch:
+    types: [reliza-build-event]
 
 name: Update images based on Reliza Hub definitions
 
