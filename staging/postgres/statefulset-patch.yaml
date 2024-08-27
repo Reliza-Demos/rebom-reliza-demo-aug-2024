@@ -8,4 +8,4 @@ spec:
     spec:
       containers:
         - name: postgres-container
-          image: docker.io/library/postgres@sha256:ba727f758a75cdd503c6b63db66a5fbc22ded0a228952e9d88e601621ad4de64
+          image: docker.io/library/postgres@sha256:c62fdb7fd6f519ef425c54760894c74e8d0cb04fbf4f7d3d79aafd86bae24edd
